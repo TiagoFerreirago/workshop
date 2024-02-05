@@ -1,19 +1,34 @@
 package br.com.universelife.course.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.universelife.course.Service.UserService;
 import br.com.universelife.course.entities.User;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
 
+	@Autowired
+	private UserService userService;
+	
 	@GetMapping
-	public ResponseEntity<User>findall(){
-		User user = new User(1L, "Bruno", "Bruno@gmail.com", "84955-54552", "1234");
+	public ResponseEntity<List<User>>findAll(){
+		List<User> list = userService.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@GetMapping(value= "/{id}")
+	public ResponseEntity<User> findById(@PathVariable Long id){
+		User user = userService.findById(id);
 		return ResponseEntity.ok().body(user);
 	}
 }
