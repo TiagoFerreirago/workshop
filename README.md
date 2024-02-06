@@ -1,7 +1,7 @@
 # workshop
 
 ## Domain Model
-![Domain]([(https://github.com/TiagoFerreirago/arqwork/blob/main/projeto%20jpa.png)])
+![Domain](https://github.com/TiagoFerreirago/arqwork/blob/main/projeto%20jpa.png)
 
 # Tecnologias utilizadas
 ## Back end
