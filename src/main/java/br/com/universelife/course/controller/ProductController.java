@@ -13,27 +13,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.universelife.course.Service.CategoryService;
 import br.com.universelife.course.Service.OrderService;
+import br.com.universelife.course.Service.ProductService;
 import br.com.universelife.course.Service.UserService;
 import br.com.universelife.course.entities.Category;
 import br.com.universelife.course.entities.Order;
+import br.com.universelife.course.entities.Product;
 import br.com.universelife.course.entities.User;
 
 @RestController
-@RequestMapping(value = "/categories")
-public class CategoryController {
+@RequestMapping(value ="/products")
+public class ProductController {
 
 	@Autowired
-	private CategoryService service;
+	private ProductService service;
 	
-	@GetMapping()
-	public ResponseEntity<List<Category>>findAll(){
-		List<Category>list = service.findAll();
+	@GetMapping
+	public ResponseEntity<List<Product>>findAll(){
+		List<Product> list= service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Category>findById(@PathVariable Long id){
-		Category cat = service.findById(id);
-		return ResponseEntity.ok().body(cat);
+	
+	@GetMapping(value= "/{id}")
+	public ResponseEntity<Product>findById(@PathVariable Long id){
+		Product product = service.findById(id);
+		return ResponseEntity.ok().body(product);
 	}
 	
 	
