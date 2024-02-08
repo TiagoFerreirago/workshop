@@ -3,6 +3,8 @@ package br.com.universelife.course.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.universelife.course.entities.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -15,7 +17,7 @@ public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id= new OrderItemPK();
 	
 	private Integer quantity;
 	private Double price;
@@ -47,7 +49,7 @@ public class OrderItem implements Serializable {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
