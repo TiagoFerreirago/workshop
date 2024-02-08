@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.universelife.course.entities.User;
 import br.com.universelife.course.repository.UserRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {

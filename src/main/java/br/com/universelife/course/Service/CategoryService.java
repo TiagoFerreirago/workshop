@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.universelife.course.entities.Category;
 import br.com.universelife.course.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class CategoryService {
