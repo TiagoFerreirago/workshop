@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +25,8 @@ public class Payment implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	private Instant instant;
+	
+	@JsonIgnore
 	@MapsId
 	@OneToOne
 	private Order order;
@@ -66,6 +70,8 @@ public class Payment implements Serializable {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+	
+	
 
 	@Override
 	public boolean equals(Object obj) {
