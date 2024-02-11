@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.universelife.course.Service.exception.resourcenotfoundexception.ResourceNotFoundException;
 import br.com.universelife.course.entities.User;
 import br.com.universelife.course.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -23,7 +24,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> opt = userRepository.findById(id);
-		return opt.get();
+		return opt.orElseThrow(() -> new ResourceNotFoundException(id));
 		
 	}
 	
