@@ -3,9 +3,13 @@ package br.com.universelife.course.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import br.com.universelife.course.Service.exception.resourcenotfoundexception.DatabaseException;
 import br.com.universelife.course.Service.exception.resourcenotfoundexception.ResourceNotFoundException;
 import br.com.universelife.course.entities.User;
 import br.com.universelife.course.repository.UserRepository;
@@ -33,13 +37,27 @@ public class UserService {
 	}
 	
 	public void delete(Long id) {
+		try {
 		userRepository.deleteById(id);
+	}
+		catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		}
+		catch(DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 	
 	public User update(Long id, User obj) {
+		try {
 		User entity = userRepository.getReferenceById(id);
 		updateUser(entity, obj);
 		return userRepository.save(entity);
+		}
+		catch(RuntimeException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private void updateUser(User entity, User obj) {
