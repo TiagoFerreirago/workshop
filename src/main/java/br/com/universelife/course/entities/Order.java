@@ -42,7 +42,7 @@ public class Order implements Serializable {
 	@OneToMany(mappedBy= "id.order", fetch = FetchType.EAGER)
 	private Set<OrderItem> items = new HashSet<>();
 	
-	@OneToOne(mappedBy= "order", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToOne(mappedBy= "order", cascade = CascadeType.ALL)
 	private Payment payment;
 
 	public Order() {

@@ -7,7 +7,9 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,8 +29,8 @@ public class Payment implements Serializable {
 	private Instant instant;
 	
 	@JsonIgnore
-	@MapsId
 	@OneToOne
+	@MapsId
 	private Order order;
 	
 	public Payment() {
@@ -70,8 +72,6 @@ public class Payment implements Serializable {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-	
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -84,7 +84,5 @@ public class Payment implements Serializable {
 		Payment other = (Payment) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	 
-}
 
+}

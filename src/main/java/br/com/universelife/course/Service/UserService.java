@@ -13,6 +13,7 @@ import br.com.universelife.course.Service.exception.resourcenotfoundexception.Da
 import br.com.universelife.course.Service.exception.resourcenotfoundexception.ResourceNotFoundException;
 import br.com.universelife.course.entities.User;
 import br.com.universelife.course.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -25,17 +26,17 @@ public class UserService {
 		List<User>opt = userRepository.findAll();
 		return opt;
 	}
-	
+	@Transactional
 	public User findById(Long id) {
 		Optional<User> opt = userRepository.findById(id);
 		return opt.orElseThrow(() -> new ResourceNotFoundException(id));
 		
 	}
-	
+	@Transactional
 	public User insert(User obj) {
 		return userRepository.save(obj);
 	}
-	
+	@Transactional
 	public void delete(Long id) {
 		try {
 		userRepository.deleteById(id);
@@ -47,19 +48,19 @@ public class UserService {
 			throw new DatabaseException(e.getMessage());
 		}
 	}
-	
+	@Transactional
 	public User update(Long id, User obj) {
 		try {
 		User entity = userRepository.getReferenceById(id);
 		updateUser(entity, obj);
 		return userRepository.save(entity);
 		}
-		catch(RuntimeException e) {
-			e.printStackTrace();
+		catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
 		}
-		return null;
+		
 	}
-
+	
 	private void updateUser(User entity, User obj) {
 		entity.setName(obj.getName());
 		entity.setEmail(obj.getEmail());
